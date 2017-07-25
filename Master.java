@@ -5,7 +5,7 @@ import java.io.*;
  * Master: Sends commands to NXT Slave application
  * @author Denis Maua'
  * @since 2016-06-05
- *
+ * Modified by @pksm
  */
 public class Master {
 	private static final byte ROTATE = 0;
@@ -16,8 +16,8 @@ public class Master {
 	private NXTComm nxtComm;
 	private DataOutputStream dos;
 	private DataInputStream dis;	
-	// NXT BRICK ID
-	private static final String NXT_ID = "NXT8";	
+	
+	private static final String NXT_ID = "NXT8"; // NXT BRICK ID
 	
 	/**
 	 * Send command to the robot
@@ -45,7 +45,7 @@ public class Master {
 	private void connect() {
 		try {
 			NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.USB);
-			/* Uncomment next line for Blluetooth communication */
+			/* Uncomment next line for Bluetooth communication */
 			//NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.BLUETOOTH);			
 			NXTInfo[] nxtInfo = nxtComm.search(Master.NXT_ID);
 			
