@@ -2,13 +2,14 @@ import lejos.nxt.*;
 import lejos.nxt.comm.*;
 import lejos.nxt.Motor;
 import java.io.*;
+import lejos.robotics.navigation.DifferentialPilot;
 
 /**
  * Slave: Executes commands sent by PC Master application
  * @author Denis Maua'
  * @since 2016-06-05
  * Inspired on code by Lawrie Griffiths
- *
+ * Modified by @pksm
  */
 
 public class Slave {
