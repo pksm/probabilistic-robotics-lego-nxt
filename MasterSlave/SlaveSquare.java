@@ -32,16 +32,8 @@ public class Slave {
 				LCD.drawInt((int) (param + 0.5f),4,0,1);
 				
 				switch (cmd) {
-				case ROTATE: 
-					Motor.C.rotate((int) (param + 0.5f));
-					dos.writeFloat(0);
-					break;
-				case ROTATETO: 
-					Motor.C.rotateTo((int) (param + 0.5f));
-					dos.writeFloat(0);
-					break;
 				case SQUARE:
-					Square();
+					Square(param);
 					dos.writeFloat(0);
 					break;				
 				case STOP:
@@ -58,12 +50,12 @@ public class Slave {
 			}
 		}
 	}
-	public static void Square(){
+	public static void Square(float size){
 		DifferentialPilot pilot = new DifferentialPilot(2.205f, 4.527f, Motor.B, Motor.C, false); //in inches
-		pilot.setRotateSpeed(18);
-		pilot.setTravelSpeed(4);
+		pilot.setRotateSpeed(30);
+		pilot.setTravelSpeed(15);
 		for (int i = 0; i < 4; i++) {
-			pilot.travel(15.75, false); //approx. 40cm
+			pilot.travel(size, false); 
 			pilot.rotate(90, false); //90 degrees
 		}
 		pilot.stop();
