@@ -9,8 +9,7 @@ import java.io.*;
  */
 public class Master {
 	private static final byte SQUARE = 0;
-	private static final byte BATTERY = 1;
-	private static final byte STOP = 2;
+	private static final byte STOP = 1;
 	
 	private NXTComm nxtComm; //NXTComm - PC initiator to connect to NXT
 	private DataOutputStream dos; // outout data
@@ -91,8 +90,9 @@ public class Master {
 	    	if (cmd == 0) { 
 	    	 System.out.print("Enter square size in inches [float]: ");
 	    	 param = scan.nextFloat();
-	    	} else {
-	    		param = 0;	    		
+	    	} 
+		else {
+	    	 master.close();			
 	    	}
 	    	ret = master.sendCommand(cmd, param);
 	    	System.out.println("Command: " + cmd + " param: " + param + " return: " + ret); // print 
