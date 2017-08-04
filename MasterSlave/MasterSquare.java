@@ -89,7 +89,7 @@ public class Master {
 	    	System.out.print("Enter command [0:Square 1:Battery Level 2:Stop]: ");
 	    	cmd = (byte) scan.nextFloat(); // read float and converts it to byte
 	    	if (cmd == 0) { 
-	    	 System.out.print("Enter square size in cm [float]: ");
+	    	 System.out.print("Enter square size in inches [float]: ");
 	    	 param = scan.nextFloat();
 	    	} else {
 	    		param = 0;	    		
