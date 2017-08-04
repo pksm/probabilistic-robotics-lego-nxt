@@ -14,8 +14,7 @@ import lejos.robotics.navigation.DifferentialPilot;
 
 public class Slave {
 	private static final byte SQUARE = 0;
-	private static final byte BATTERY = 1;
-	private static final byte STOP = 2;
+	private static final byte STOP = 1;
 
 	public static void main(String[] args) throws Exception {
 		//USBConnection btc = USB.waitForConnection(); /* USB communication */
