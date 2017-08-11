@@ -18,7 +18,7 @@ public class RConsoleTest {
 		DifferentialPilot pilot = new DifferentialPilot(5.6f, 11.2f, Motor.B, Motor.C, false); //in cm
 		position = new OdometryPoseProvider (pilot);
 		Pose tmp = new Pose(0.0f, 0.0f, 0.0f);
-        position.setPose(tmp);
+        	position.setPose(tmp);
 		pilot.setRotateSpeed(50);
 		pilot.setTravelSpeed(25);
 		for (int i = 0; i < 4; i++) {
