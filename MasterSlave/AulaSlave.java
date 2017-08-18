@@ -20,14 +20,11 @@ public class AulaSlave {
 				float param = dis.readFloat();
 				switch (cmd) {
 				case FORWARD: 
-					if (Motor.A.isMoving() || Motor.B.isMoving()){
-						dos.writeFloat(0);
-						break;	
-					}
-					Motor.A.setSpeed(param);
-					Motor.B.setSpeed(param);
-					Motor.A.forward();
-					Motor.B.forward();
+					if (!Motor.A.isMoving() && !Motor.B.isMoving()){
+						Motor.A.setSpeed(param);
+						Motor.B.setSpeed(param);
+						Motor.A.forward();
+						Motor.B.forward();}
 					dos.writeFloat(0);
 					break;				
 				case STOP:
