@@ -17,7 +17,7 @@ public class AulaSlave {
 		while (true) {
 			try {
 				byte cmd = dis.readByte();
-				float param = dis.readInt();
+				float param = dis.readFloat();
 				switch (cmd) {
 				case FORWARD: 
 					if (Motor.A.isMoving() || Motor.B.isMoving()){
