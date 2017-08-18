@@ -37,8 +37,8 @@ public class AulaMaster {
 			//NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.USB); //USB initiator
 			/* Uncomment next line for Bluetooth communication */
 			NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.BLUETOOTH); // Bluetooth initiator	
-			NXTInfo[] nxtInfo = nxtComm.search(AulaMaster.NXT_ID); //find brick with this NXT_ID by doing a Bluetooth inquiry
-			if (nxtInfo.length == 0) { // failed to find a brick with the specified ID
+			NXTInfo[] nxtInfo = nxtComm.search(AulaMaster.NXT_ID); //find brick with NXT_ID by doing a Bluetooth inquiry
+			if (nxtInfo.length == 0) { // failed to find a brick with the ID
 				System.err.println("NO NXT found");
 				System.exit(1);
 			}
