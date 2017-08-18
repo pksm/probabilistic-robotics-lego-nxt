@@ -20,7 +20,7 @@ public class AulaMaster {
 	 * @param param argument
 	 * @return value returned by the robot (float)
 	 */
-	private float sendCommand(byte command, float param) { // try sending byte commands to brick and returns a float ouputted by Slave
+	private float sendCommand(byte command, float param) { // try sending data to brick and returns a float ouputted by Slave
 		try {
 			dos.writeByte(command); // send command
 			dos.writeFloat(param); // send parameter
@@ -56,18 +56,6 @@ public class AulaMaster {
 			System.exit(1);
 		}
 	}		
-	private void close() { //Terminate the program and send exit command to the robot
-		try {
-			dos.writeByte(EXIT);
-			dos.writeFloat(0f);
-			dos.flush();
-			Thread.sleep(200);
-			System.exit(0);
-		} catch (Exception ioe) {
-			System.err.println("IO Exception");
-		}
-	}	
-	
 	public static void main(String[] args) {
 		byte cmd = 0; float param = 0; float ret=0f; 
 		AulaMaster master = new AulaMaster(); // create object AulaMaster
