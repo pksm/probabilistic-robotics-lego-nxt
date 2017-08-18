@@ -33,7 +33,7 @@ public class AulaSlave {
 					dos.writeFloat(0);
 					break;			
 				case EXIT:
-					System.exit(1);
+					System.exit(0);
 				default:
 					dos.writeFloat(-1);
 				}
