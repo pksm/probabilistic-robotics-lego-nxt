@@ -11,12 +11,12 @@ public class AulaMaster {
 	private DataOutputStream dos; 
 	private DataInputStream dis; 
 	
-	private static final String NXT_ID = "NXT12"; // NXT BRICK NAME
+	private static final String NXT_ID = "NXTxx"; // NXT BRICK NAME
 
 	private float sendCommand(byte command, float param) { 
 		try {
 			dos.writeByte(command); 
-			dos.writeInt(param); 
+			dos.writeFloat(param); 
 			dos.flush();
 			return dis.readFloat();
 		} catch (IOException ioe) { 
@@ -30,7 +30,7 @@ public class AulaMaster {
 			NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.USB);
 			/* Uncomment next line for Bluetooth communication */
 			//NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.BLUETOOTH);
-			NXTInfo[] nxtInfo = nxtComm.search(Master.NXT_ID); 
+			NXTInfo[] nxtInfo = nxtComm.search(AulaMaster.NXT_ID); 
 			if (nxtInfo.length == 0) {
 				System.err.println("NO NXT found");
 				System.exit(1);
@@ -65,18 +65,17 @@ public class AulaMaster {
 		byte cmd = 0; float param = 0; float ret=0f; 
 		AulaMaster master = new AulaMaster();
 		master.connect();
-	    Scanner scan = new Scanner( System.in ); 	    
-	    while(true) {
-	    	System.out.print("Enter command [0:Forward 1:Stop 2:Exit]: ");
-	    	cmd = (byte) scan.nextFloat(); // read float and converts it to byte
-	    	if (cmd == 0) { 
-	    	 System.out.print("Set speed: ");
-	    	 param = scan.nextFloat();
-	    	} 
-	    	else param = 0f;
-	    	ret = master.sendCommand(cmd, param);
-	    	System.out.println("Command: " + cmd + " param: " + param + " return: " + ret); // print 
-	    }
+	   	Scanner scan = new Scanner( System.in ); 	    
+	   	while(true) {
+	    		System.out.print("Enter command [0:Forward 1:Stop 2:Exit]: ");
+	    		cmd = (byte) scan.nextFloat(); // read float and converts it to byte
+	    		if (cmd == 0) { 
+	    	 		System.out.print("Set speed: ");
+	    	 		param = scan.nextFloat();
+	    		} else param = 0f;
+	    		ret = master.sendCommand(cmd, param);
+	    		System.out.println("Command: " + cmd + " param: " + param + " return: " + ret);  
+	    	}
 	}
 
 }
