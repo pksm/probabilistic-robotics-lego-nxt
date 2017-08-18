@@ -81,7 +81,7 @@ public class AulaMaster {
 	    	 		param = scan.nextFloat(); // read (param) float and converts it to byte
 	    		} else param = 0f; // if not Forward, set param to 0.0
 	    		ret = master.sendCommand(cmd, param); //call sendCommand
-	    		System.out.println("Command: " + cmd + " param: " + param + " return: " + ret); #print command, paramenter and returned data from Slave
+	    		System.out.println("Command: " + cmd + " param: " + param + " return: " + ret); //print command, paramenter and returned data from Slave
 	    	}
 	}
 
