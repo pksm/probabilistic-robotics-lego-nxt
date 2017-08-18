@@ -32,7 +32,7 @@ public class AulaMaster {
 			return -1f;
 		}
 	}
-	private void connect() { //connect to NXT brick through USB or Bluetooth
+	private void connect() { //connects to NXT brick through USB or Bluetooth
 		try {
 			//NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.USB); //USB initiator
 			/* Uncomment next line for Bluetooth communication */
