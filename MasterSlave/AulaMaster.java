@@ -24,9 +24,9 @@ public class AulaMaster {
 		try {
 			dos.writeByte(command); // send command
 			dos.writeFloat(param); // send parameter
-			dos.flush(); // flush the output stream to be sure the data is actually transmitted
+			dos.flush(); // flush the output stream to be sure data is transmitted
 			return dis.readFloat(); // return float sent by Slave
-		} catch (IOException ioe) { // exception handler
+		} catch (IOException ioe) { // exception handling
 			System.err.println("IO Exception");
 			System.exit(1);
 			return -1f;
@@ -43,7 +43,7 @@ public class AulaMaster {
 				System.exit(1);
 			}
 			
-			if (!nxtComm.open(nxtInfo[0])) { // the brick was found but we coluld establish a connection
+			if (!nxtComm.open(nxtInfo[0])) { // the brick was found but a connection could not be establish
 				System.err.println("Failed to open NXT");
 				System.exit(1);
 			}
@@ -51,7 +51,7 @@ public class AulaMaster {
 			dis = new DataInputStream(nxtComm.getInputStream()); // open data input stream 
 			dos = new DataOutputStream(nxtComm.getOutputStream()); // open data output stream
 
-		} catch (NXTCommException e) { // exception handler
+		} catch (NXTCommException e) {  // exception handling
 			System.err.println("NXTComm Exception: "  + e.getMessage());
 			System.exit(1);
 		}
@@ -59,7 +59,7 @@ public class AulaMaster {
 	public static void main(String[] args) {
 		byte cmd = 0; float param = 0; float ret=0f; 
 		AulaMaster master = new AulaMaster(); // create object AulaMaster
-		master.connect(); // try to connect 
+		master.connect(); // tries to connect with slave
 	   	Scanner scan = new Scanner( System.in ); // create object to read from keyboard
 	   	while(true) {
 	    		System.out.print("Enter command [0:Forward 1:Stop 2:Exit]: "); //print available commands
