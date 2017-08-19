@@ -6,7 +6,7 @@ import lejos.nxt.LCD;
 public class RConsoleTest {
 	
 	public static void main(String[] args) throws Exception {
-		RConsole.openAny(0); //ver na documentação oq OpenAny significa
+		RConsole.openAny(0); //parameter int timeout in milliseconds that when set to 0, waits forever.
 		
 		Motor.A.rotate(1440,true);
 
