@@ -1,8 +1,6 @@
  import lejos.nxt.Button;
  import lejos.nxt.Motor;
- /*
- * Programna 1
- */
+
 public class MotorTutor1Remote
  {
       public static void main(String[] args)
