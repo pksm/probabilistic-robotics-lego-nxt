@@ -1,12 +1,14 @@
+/*
+Code by github@gcronin
+Modified by github@pksm
+Available at https://github.com/gcronin/LearningJava/blob/master/leJos%20Compiler/Samples/lineFollow.java
+*/
 import lejos.nxt.Button;
-import lejos.nxt.LCD;
 import lejos.nxt.LightSensor;
 import lejos.nxt.MotorPort;
 import lejos.nxt.NXTRegulatedMotor;
 import lejos.nxt.SensorPort;
-import lejos.nxt.UltrasonicSensor;
 import lejos.nxt.*;
-import lejos.util.Stopwatch;
  
 public class SensorIR {
         public static void main(String [] args){
@@ -23,9 +25,8 @@ public class SensorIR {
         	LightSensor light = new LightSensor(SensorPort.S4);
         	NXTMotor mB = new NXTMotor(MotorPort.B);
         	NXTMotor mC = new NXTMotor(MotorPort.C);
-        	Stopwatch s1 = new Stopwatch();
         	while(true){
-        		LCD.drawInt(light.getLightValue(), 4, 0, 0);
+        		//LCD.drawInt(light.getLightValue(), 4, 0, 0);
         		int Lval = light.getLightValue();
         		int error = Lval - offset;
         		derivative = error - lastError;
