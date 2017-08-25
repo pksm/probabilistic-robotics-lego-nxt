@@ -61,8 +61,8 @@ public class Buggy {
     
     private boolean line(double x, double y)
     {
-    	double m = (this.destino[1] - this.origem[1]) / (this.destino[0] - this.origem[0]);
-    	double y_calc = m * (x - this.origem[0] + this.origem[1]);
+    	double m = (this.destino[1] - this.origem[1]) / (this.destino[0] - this.origem[0]); //coeficiente angular da reta
+    	double y_calc = (m * (x - this.origem[0])) + this.origem[1]; // y previsto dado a eq. da reta e o x atual
     	double erro = 0.25;
     	return ((y_calc - y) < erro);
     }
@@ -140,7 +140,8 @@ public class Buggy {
     		lastError = error;
     		this.pose = End_pose((double)mB.getTachoCount(),(double)mC.getTachoCount());
     		// Need to think if its better to compare Ks or pass as parameter
-    		if (this.line(this.pose[0],this.pose[1]) && (Kp+Ki+Kd)>0){
+    		if (this.line(this.pose[0],this.pose[1])){
+			Button.waitForAnyPress();
     			return;
     		}
     	}
