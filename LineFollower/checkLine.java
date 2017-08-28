@@ -6,39 +6,41 @@ import lejos.nxt.SensorPort;
 import lejos.util.Delay;
 import lejos.nxt.comm.RConsole;
  
-public class checkLine {
+public class checkLine{
         public static void main(String [] args){
-        	LightSensor light = new LightSensor(SensorPort.S4);
-         LCD.drawString("Teste sensor optico", 0, 0);
-         LCD.drawString("Posicione o robo na linha e pressione uma tecla para prosseguir",2,0);
-         LCD.clear();
-         Button.waitForAnyPress();
-         LCD.drawString("Sensor sobre a linha preta", 0, 0); //pos inicial - sem rotacionar
-         LCD.drawInt(light.getLightValue(), 4, 0, 0); //pos inicial - sem rotacionar
-         Button.waitForAnyPress();
-         LCD.clear();
-         LCD.drawString("Sensor sobre o branco", 0, 0); //pos inicial - sem rotacionar
-         Motor.A.rotate(+, true);
-         Motor.B.rotate(-);
-         LCD.drawInt(light.getLightValue(), 4, 0, 0); // rotacionando em 20 graus para a direita
-         Button.waitForAnyPress();
-         LCD.clear();
-         LCD.drawString("Leitura continua...", 0, 0);
-        	while(true){
-          Motor.A.rotate(+, true);
-          Motor.B.rotate(-,true);
-          while(Motor.A.isMoving() || Motor.B.isMoving()) {
-             Delay.msDelay(80);
-             LCD.drawInt(light.getLightValue(),4,0,0);
-           }
-          Delay.msDelay(200);
-          Motor.A.rotateTo(+, true);
-          Motor.B.rotateTo(-,true);
-          while(Motor.A.isMoving() || Motor.B.isMoving()) {
-             Delay.msDelay(80);
-             LCD.drawInt(light.getLightValue(),4,0,0);
-           }
-          Delay.msDelay(200);
-        	}
+          RConsole.openAny(0);
+          LightSensor light = new LightSensor(SensorPort.S4);
+          LCD.drawString("Teste sensor optico", 0, 0);
+          Button.waitForAnyPress();
+          LCD.clear();
+          LCD.drawString("Preto", 0, 0); 
+          LCD.drawInt(light.getLightValue(),  0, 4); 
+          Button.waitForAnyPress();
+          LCD.clear();
+          LCD.drawString("Branco", 0, 0); 
+          Motor.A.rotate(80, true);
+          Motor.B.rotate(-80);
+          LCD.drawInt(light.getLightValue(), 0, 4); 
+          Button.waitForAnyPress();
+          LCD.clear();
+          LCD.drawString("Continuo...", 0, 0);
+          
+          while(!Button.ESCAPE.isDown()){
+            Motor.A.rotate(-160, true);
+            Motor.B.rotate(160,true);
+            while(Motor.A.isMoving() || Motor.B.isMoving()) {
+               Delay.msDelay(20);
+               RConsole.println(""+light.getLightValue());
+            }
+            Delay.msDelay(400);
+            Motor.A.rotateTo(80, true);
+            Motor.B.rotateTo(-80,true);
+            while(Motor.A.isMoving() || Motor.B.isMoving()) {
+               Delay.msDelay(20);
+               RConsole.println(""+light.getLightValue());
+            }
+            Delay.msDelay(400);
+          }
+          RConsole.close();
+       }
 }
-
