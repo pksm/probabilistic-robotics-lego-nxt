@@ -1,39 +1,44 @@
 import lejos.nxt.Button;
 import lejos.nxt.LightSensor;
-import lejos.nxt.MotorPort;
-import lejos.nxt.NXTRegulatedMotor;
+import lejos.nxt.Motor;
+import lejos.nxt.LCD;
 import lejos.nxt.SensorPort;
-import lejos.nxt.*;
+import lejos.util.Delay;
+import lejos.nxt.comm.RConsole;
  
 public class checkLine {
         public static void main(String [] args){
-        	int Kp = 240;
-        	int Ki = 0;
-        	int Kd = 25;
-        	int white = 54;
-        	int black = 32;
-        	int offset = (white+black)/2;
-        	int lastError = 0;
-        	int derivative = 0;
-        	int Tp = 25;
-        	int integral = 0;
         	LightSensor light = new LightSensor(SensorPort.S4);
-        	NXTMotor mB = new NXTMotor(MotorPort.B);
-        	NXTMotor mC = new NXTMotor(MotorPort.C);
+         LCD.drawString("Teste sensor optico", 0, 0);
+         LCD.drawString("Posicione o robo na linha e pressione uma tecla para prosseguir",2,0);
+         LCD.clear();
+         Button.waitForAnyPress();
+         LCD.drawString("Sensor sobre a linha preta", 0, 0); //pos inicial - sem rotacionar
+         LCD.drawInt(light.getLightValue(), 4, 0, 0); //pos inicial - sem rotacionar
+         Button.waitForAnyPress();
+         LCD.clear();
+         LCD.drawString("Sensor sobre o branco", 0, 0); //pos inicial - sem rotacionar
+         Motor.A.rotate(+, true);
+         Motor.B.rotate(-);
+         LCD.drawInt(light.getLightValue(), 4, 0, 0); // rotacionando em 20 graus para a direita
+         Button.waitForAnyPress();
+         LCD.clear();
+         LCD.drawString("Leitura continua...", 0, 0);
         	while(true){
-        		//LCD.drawInt(light.getLightValue(), 4, 0, 0);
-        		int Lval = light.getLightValue();
-        		int error = Lval - offset;
-        		derivative = error - lastError;
-        		integral += error;
-        		int turn = (Kp*error) + (Ki*integral) + (Kd*derivative);
-        		turn /= 100;
-        		int powB = Tp-turn;
-        		int powC = Tp + turn;
-        		mB.setPower(powB);
-        		mC.setPower(powC);
-        		lastError = error;
+          Motor.A.rotate(+, true);
+          Motor.B.rotate(-,true);
+          while(Motor.A.isMoving() || Motor.B.isMoving()) {
+             Delay.msDelay(80);
+             LCD.drawInt(light.getLightValue(),4,0,0);
+           }
+          Delay.msDelay(200);
+          Motor.A.rotateTo(+, true);
+          Motor.B.rotateTo(-,true);
+          while(Motor.A.isMoving() || Motor.B.isMoving()) {
+             Delay.msDelay(80);
+             LCD.drawInt(light.getLightValue(),4,0,0);
+           }
+          Delay.msDelay(200);
         	}
-        }
 }
 
