@@ -11,7 +11,7 @@ public class unregulatedMotor {
 	static NXTMotor mC;
 	
 	public static void main(String args[])  
-    {
+    	{
 		light = new LightSensor(SensorPort.S4);
 		mB = new NXTMotor(MotorPort.B);
 		mC = new NXTMotor(MotorPort.C);
@@ -24,6 +24,5 @@ public class unregulatedMotor {
 		}
 		mB.stop();
 		mC.stop();
-    }
-		
+    	}	
 }
