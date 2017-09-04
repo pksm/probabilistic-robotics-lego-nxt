@@ -19,7 +19,7 @@ public class MotorTypes {
 		NXTRegulatedMotor rb = new NXTRegulatedMotor(MotorPort.B); //create instance of a regulated motor in motor port B 
 		NXTRegulatedMotor rc = new NXTRegulatedMotor(MotorPort.C); //create instance of a regulated motor in motor port C
 		
-		boolean bola, bolc; //probably not necessary ...NEED TO REFACTOR		
+		boolean bola, bolc; 		
 		//UNREGULATED
 		Button.waitForAnyPress();
     		mB.setPower(50); 
