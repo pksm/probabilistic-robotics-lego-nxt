@@ -21,18 +21,18 @@ public class mapaMedido{
       new Line(702,483,503,230),
       new Line(503,230,342,164),
       new Line(342,164,485,348),
-      new Line(485,348,730,528),
-
-      new Line(100,813,168,873),
-      new Line(168,873,1140,885),
-      new Line(1140,885,1117,432),
-      new Line(1117,432,830,507),
-      new Line(830,507,690,571),
-      new Line(690,571,450,593),
-      new Line(450,593,263,350),
-      new Line(263,350,531,382),
-      new Line(531,382,986,166),
-      new Line(986,166,490,100)
+      new Line(485,348,730,528)
+      /* Connects all dots in order: P1 -> P2 -> P3 -> ... -> P11*/
+      // new Line(100,813,168,873),
+      // new Line(168,873,1140,885),
+      // new Line(1140,885,1117,432),
+      // new Line(1117,432,830,507),
+      // new Line(830,507,690,571),
+      // new Line(690,571,450,593),
+      // new Line(450,593,263,350),
+      // new Line(263,350,531,382),
+      // new Line(531,382,986,166),
+      // new Line(986,166,490,100)
     };
     //Rectangle(int x, int y, int width, int height)  -- always integer coordinates
     //Creates a rectangle with top left corner at (x,y) and with specified width and height.
@@ -55,7 +55,7 @@ public class mapaMedido{
     };
     try{
         mymap.createSVGFile("mapa.svg");
-        mymap.flip().createSVGFile("mapaFlipY.svg");
+        mymap.flip().createSVGFile("mapaFlipY.svg"); //creates a fliped version in the Y-axis of the orginal image
     }catch (Exception e){
         System.out.print("Exception caught: ");
         System.out.println(e.getMessage());
