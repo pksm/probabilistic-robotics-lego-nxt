@@ -6,10 +6,10 @@ import java.io.*;
  * Ainda em atualização...
  */
 public class Master {
-	private static final byte ADD_POINT = 0;
-	private static final byte TRAVEL_PATH = 1;
-	private static final byte STATUS = 2;
-	private static final byte STOP = 3;
+	private static final byte ADD_POINT = 0; //adds waypoint to path
+	private static final byte TRAVEL_PATH = 1; // enables slave to execute the path
+	private static final byte STATUS = 2; // enquires about slave's position 
+	private static final byte STOP = 3; // closes communication
 	
 	private NXTComm nxtComm;
 	private DataOutputStream dos;
