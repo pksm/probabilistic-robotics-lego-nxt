@@ -37,7 +37,7 @@ public class MotorTypes {
 		rb.stop(true);
 		rc.stop();
 		//regulated to unregulated
-		bola = rb.suspendRegulation(); 
+		bolb = rb.suspendRegulation(); 
 		bolc = rc.suspendRegulation();
 		
 		//UNREGULATED
@@ -47,7 +47,7 @@ public class MotorTypes {
 		mC.setPower(-30);
 		mB.forward();
 		mC.forward();
-		System.out.println(""+bola+" "+mB.getPower());	
+		System.out.println(""+bolb+" "+mB.getPower());	
 		System.out.println(""+bolc+" "+mC.getPower());	
 		Delay.msDelay(800);
 		
