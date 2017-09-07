@@ -1,7 +1,7 @@
 import lejos.geom.*;
 import lejos.robotics.mapping.LineMap;
 import lejos.nxt.Button;
-import lejos.robotics.RegulatedMotor;
+import lejos.robotics.RegulatedMotor; //maybe unnecessary
 import lejos.robotics.navigation.DifferentialPilot;
 import lejos.robotics.navigation.Navigator;
 import lejos.robotics.navigation.Waypoint;
@@ -48,7 +48,7 @@ public class waypointMapa{
     Navigator nav = new Navigator(p,position);
     Pose init = new Pose(26.3f,35f, 0f);
     position.setPose(init); //seta pose inicial para X:26.3 cm Y:35 cm THETA:0 graus 
-    nav.addWaypoint(45f,59.3f);
+    nav.addWaypoint(45f,59.3f); //always float
     nav.addWaypoint(69f,57.1f);
     nav.followPath();
     System.out.println("First point "+nav.getWaypoint());
