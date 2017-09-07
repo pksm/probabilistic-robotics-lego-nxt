@@ -1,45 +1,50 @@
 import lejos.nxt.*;
 import lejos.nxt.comm.*;
-import lejos.nxt.Motor;
 import java.io.*;
+import lejos.robotics.RegulatedMotor; //maybe unnecessary
 import lejos.robotics.navigation.DifferentialPilot;
-
-/**
- * Slave: Executes commands sent by PC Master application
- * Ainda em atualização...
- */
+import lejos.robotics.navigation.Navigator;
+import lejos.robotics.navigation.Waypoint;
+import lejos.robotics.localization.OdometryPoseProvider;
+import lejos.robotics.navigation.Pose;
 
 public class Slave {
-	private static final byte SQUARE = 0;
-	private static final byte BATTERY = 1;
-	private static final byte STOP = 2;
+	private static final byte ADD_POINT = 0; //adds waypoint to path
+	private static final byte TRAVEL_PATH = 1; // enables slave to execute the path
+	private static final byte STATUS = 2; // enquires about slave's position 
+	private static final byte STOP = 3; // closes communication
 
 	public static void main(String[] args) throws Exception {
-		//USBConnection btc = USB.waitForConnection(); /* USB communication */
+		USBConnection btc = USB.waitForConnection(); /* USB communication */
 		/* Uncomment next line for Bluetooth */
-		BTConnection btc = Bluetooth.waitForConnection();
+		//BTConnection btc = Bluetooth.waitForConnection();
 		DataInputStream dis = btc.openDataInputStream();
 		DataOutputStream dos = btc.openDataOutputStream();
+
+		DifferentialPilot p = new DifferentialPilot(5.6f, 11.2f, Motor.C, Motor.B); // (wheel diameter, dist between wheels, left motor, right motor )
+    	Navigator nav = new Navigator(p);
+    	//OdometryPoseProvider position = new OdometryPoseProvider (p);
+    	//Navigator nav = new Navigator(p,position);
+
 		LCD.drawString("READY", 0, 10);
 		while (true) {
 			try {
 				byte cmd = dis.readByte();
 				LCD.drawInt(cmd,1,0,0);
-				float param = dis.readFloat();
-				LCD.drawInt((int) (param + 0.5f),4,0,1);
+				float addX = dis.readFloat();
+				float addY = dis.readFloat();
 				
 				switch (cmd) {
-				case ROTATE: 
-					Motor.C.rotate((int) (param + 0.5f));
+				case ADD_POINT: 
+					nav.addWaypoint(addx,addY); //adds a waypoint to path queue
 					dos.writeFloat(0);
 					break;
-				case ROTATETO: 
-					Motor.C.rotateTo((int) (param + 0.5f));
+				case TRAVEL_PATH: 
+					nav.followPath(); //initiates a path through waypoints
 					dos.writeFloat(0);
 					break;
-				case SQUARE:
-					Square();
-					dos.writeFloat(0);
+				case STATUS:
+					dos.writeBoolean(nav.pathCompleted()); // Returns true if the the final waypoint has been reached
 					break;				
 				case STOP:
 					System.exit(1);
@@ -55,15 +60,4 @@ public class Slave {
 			}
 		}
 	}
-	public static void Square(){
-		DifferentialPilot pilot = new DifferentialPilot(2.205f, 4.527f, Motor.B, Motor.C, false); //in inches
-		pilot.setRotateSpeed(18);
-		pilot.setTravelSpeed(4);
-		for (int i = 0; i < 4; i++) {
-			pilot.travel(15.75, false); //approx. 40cm
-			pilot.rotate(90, false); //90 degrees
-		}
-		pilot.stop();
-	}
-
 }

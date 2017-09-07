@@ -1,11 +1,8 @@
 import lejos.pc.comm.*;
 import java.util.Scanner;
 import java.io.*;
-/*
- * Master: Sends commands to NXT Slave application
- * Ainda em atualização...
- */
-public class Master {
+
+public class MasterNav {
 	private static final byte ADD_POINT = 0; //adds waypoint to path
 	private static final byte TRAVEL_PATH = 1; // enables slave to execute the path
 	private static final byte STATUS = 2; // enquires about slave's position 
@@ -16,17 +13,12 @@ public class Master {
 	private DataInputStream dis;	
 	
 	private static final String NXT_ID = "PKSM"; // NXT BRICK ID
-	
-	/**
-	 * Send command to the robot
-	 * @param command specifies command
-	 * @param param argument
-	 * @return value returned by the robot (float)
-	 */
-	private float sendCommand(byte command, float param) {
+
+	private float sendCommand(byte command, float paramX, float paramY) {
 		try {
 			dos.writeByte(command);
-			dos.writeFloat(param);
+			dos.writeFloat(paramX);
+			dos.writeFloat(paramY);
 			dos.flush();
 			return dis.readFloat();
 		} catch (IOException ioe) {
@@ -35,10 +27,18 @@ public class Master {
 			return -1f;
 		}
 	}
-	
-	/*
-	 * Connect to the NXT
-	 */
+	private float sendCommand(byte command) {
+		try {
+			dos.writeByte(command);
+			dos.flush();
+			return dis.readBoolean();
+		} catch (IOException ioe) {
+			System.err.println("IO Exception");
+			System.exit(1);
+			return -1f;
+		}
+	}
+
 	private void connect() {
 		try {
 			NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.USB);
@@ -64,13 +64,11 @@ public class Master {
 			System.exit(1);
 		}
 	}		
-	/**
-	 * Terminate the program and send stop command to the robot
-	 *
-	 */
+
 	private void close() {
 		try {
 			dos.writeByte(STOP);
+			dos.writeFloat(0f);
 			dos.writeFloat(0f);
 			dos.flush();
 			Thread.sleep(200);
@@ -79,23 +77,29 @@ public class Master {
 			System.err.println("IO Exception");
 		}
 	}	
-	
 	public static void main(String[] args) {
-		byte cmd = 0; float param = 0f; float ret=0f; 
-		Master master = new Master();
+		byte cmd = 0; float param = 0f; float ret=0f; float addX = 0f; float addY = 0f; boolean boolRet = false;
+		MasterNav master = new MasterNav();
 		master.connect();
 	    Scanner scan = new Scanner( System.in );	    
 	    while(true) {
-	    	System.out.print("Enter command [0:ROTATE 1:ROTATETO 2:SQUARE 3:STOP]: ");
+	    	System.out.print("Enter command [0:ADD_POINT 1:TRAVEL_PATH 2:STATUS 3:STOP]: ");
 	    	cmd = (byte) scan.nextFloat(); 
-	    	if (cmd < 2) {
-	    	 System.out.print("Enter param [float]: ");
-	    	 param = scan.nextFloat();
+	    	if (cmd == 0){
+	    		System.out.println("Enter coordinate X: ");
+	    		addX = scan.nextFloat();
+	    		System.out.println("Enter coordinate Y: ");
+	    		addY = scan.nextFloat();
 	    	} else {
-	    		param = 0;	    		
+	    		addX = -1;
+	    		addY = -1;	    		
 	    	}
-	    	ret = master.sendCommand(cmd, param);
-	    	System.out.println("cmd: " + cmd + " param: " + param + " return: " + ret);
+	    	if (cmd == 2){
+	    		boolRet = master.sendCommand(cmd);
+	    	}else{
+	    		ret = master.sendCommand(cmd, addX, addY); // return 0 when Slave successfully recieved the dos
+	    	}
+	    	System.out.println("cmd: " + addX + " X: " + "Y: " + addY +" return: " + ret);
 	    }
 	}
 
