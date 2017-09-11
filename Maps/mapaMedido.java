@@ -47,7 +47,7 @@ public class mapaMedido{
 
     Point[] points = {
       new Point(100,813),    /* P1 */
-      new Point(168,873),   /* P2 */
+      new Point(426,873),   /* P2 */
       new Point(1140,885),  /* P3 */
       new Point(1117,432),  /* P4 */
       new Point(830,507),   /* P5 */
