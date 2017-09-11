@@ -27,7 +27,7 @@ public class MasterNav {
 			return -1f;
 		}
 	}
-	private float sendCommand(byte command) {
+	private boolean sendCommand(byte command) {
 		try {
 			dos.writeByte(command);
 			dos.flush();
@@ -35,7 +35,7 @@ public class MasterNav {
 		} catch (IOException ioe) {
 			System.err.println("IO Exception");
 			System.exit(1);
-			return -1f;
+			return false;
 		}
 	}
 
@@ -44,7 +44,7 @@ public class MasterNav {
 			NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.USB);
 			/* Uncomment next line for Bluetooth communication */
 			//NXTComm nxtComm = NXTCommFactory.createNXTComm(NXTCommFactory.BLUETOOTH);			
-			NXTInfo[] nxtInfo = nxtComm.search(Master.NXT_ID);
+			NXTInfo[] nxtInfo = nxtComm.search(MasterNav.NXT_ID);
 			
 			if (nxtInfo.length == 0) {
 				System.err.println("NO NXT found");
@@ -96,10 +96,11 @@ public class MasterNav {
 	    	}
 	    	if (cmd == 2){
 	    		boolRet = master.sendCommand(cmd);
+	    		System.out.println("cmd: " + " return: " + boolRet);
 	    	}else{
 	    		ret = master.sendCommand(cmd, addX, addY); // return 0 when Slave successfully recieved the dos
+	    		System.out.println("cmd: " + addX + " X: " + "Y: " + addY +" return: " + ret);
 	    	}
-	    	System.out.println("cmd: " + addX + " X: " + "Y: " + addY +" return: " + ret);
 	    }
 	}
 
