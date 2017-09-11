@@ -17,11 +17,16 @@ public class mapaMedido{
       new Line(770,602,1060,516),
       new Line(1070,815,1060,516),
       /* Pentagon */
-      new Line(730,528,702,483),
-      new Line(702,483,503,230),
-      new Line(503,230,342,164),
-      new Line(342,164,485,348),
-      new Line(485,348,730,528)
+      new Line(335,345,502,155),
+      new Line(502,155,700,225),
+      new Line(700,225, 725,490),
+      new Line(725,490,480,525),
+      new Line(480,525,335,345)
+      // new Line(730,528,702,483),
+      // new Line(702,483,503,230),
+      // new Line(503,230,335,345), //2
+      // new Line(335,345,485,348), //1
+      // new Line(485,348,730,528)
       /* Connects all dots in order: P1 -> P2 -> P3 -> ... -> P11*/
       // new Line(100,813,168,873),
       // new Line(168,873,1140,885),
