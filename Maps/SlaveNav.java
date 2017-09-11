@@ -36,7 +36,7 @@ public class SlaveNav {
 				
 				switch (cmd) {
 				case ADD_POINT: 
-					nav.addWaypoint(addx,addY); //adds a waypoint to path queue
+					nav.addWaypoint(addX,addY); //adds a waypoint to path queue
 					dos.writeFloat(0);
 					break;
 				case TRAVEL_PATH: 
