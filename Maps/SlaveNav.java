@@ -48,7 +48,7 @@ public class SlaveNav {
 					dos.writeBoolean(nav.pathCompleted()); // Returns true if the the final waypoint has been reached
 					break;	
 				case SET_START:
-					init = Pose(addX,addY);
+					init = new Pose(addX,addY, 0f);
 					position.setPose(init);
 					dos.writeFloat(0);
 					break;
