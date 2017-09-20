@@ -17,8 +17,19 @@ public class occupGrid{
   		int sizeX = (int) Math.ceil((float)w / cellSize);
   		int sizeY =(int) Math.ceil((float)h / cellSize);
   		int [][] map = new int [sizeX][sizeY];
-
-
+  		for ( row = 0; row < sizeX; row++ )
+     		for ( column = 0; column < sizeY; column++)
+     		{
+        		map[row][column] = -1;
+    		}
+    	for ( row = 0; row < sizeX; row++ ){
+     		for ( column = 0; column < sizeY; column++)
+     		{
+        		System.out.print("  "+ map[row][column]);
+    		}
+    		System.out.println("");
+    		//System.out.println("------");
+    	}
   }
 
 
