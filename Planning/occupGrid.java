@@ -3,31 +3,41 @@ Projeto 5 - Parte C - Mapa de Ocupação
 Dividir para conquistar:
 - método para busca em largura (parâmetros: init, final, grafo   saída: plano)
 - fazer grid do mapa de linhas (discretização)
-- 
-
+- método da busca em largura, frente de onda 
+*talvez colocar os bounds do grid como atributos da classe occupGrid*
 */
 //import lejos.geom.*;
 //import lejos.robotics.mapping.LineMap;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.List;
+import java.awt.Point;
+import java.util.PriorityQueue; 
+import java.util.ArrayList;
 
 public class occupGrid{
+  
+  public static int sizeX;
+  public static int sizeY;
+  public static ArrayList<Point> actions; 
 
   public static int[][] mapToGrid(int w, int h, int cellSize){ //width and height
-  		int sizeX = (int) Math.ceil((float)w / cellSize);
-  		int sizeY =(int) Math.ceil((float)h / cellSize);
+  		sizeX = (int) Math.ceil((float)w / cellSize);
+  		sizeY =(int) Math.ceil((float)h / cellSize);
   		int [][] map = new int [sizeX][sizeY];
   		for (int row = 0; row < sizeX; row++ )
      		for (int column = 0; column < sizeY; column++)
      		{
-        		map[row][column] = -1;
+        		map[row][column] = 999; //initialize with 999
     		}
     	return map;
   }
 
   public static void printGrid(int[][] map, int w, int h, int cellSize){
-  	int sizeX = (int) Math.ceil((float)w / cellSize);
-  	int sizeY =(int) Math.ceil((float)h / cellSize);
+  	//int sizeX = (int) Math.ceil((float)w / cellSize);
+  	//int sizeY =(int) Math.ceil((float)h / cellSize);
   	for (int row = 0; row < sizeX; row++ ){
 		for (int column = 0; column < sizeY; column++)
 		{
@@ -36,11 +46,98 @@ public class occupGrid{
 		System.out.println("");
 	}
   }
+  public static Set<Point> reachableCells(Point p){ // 4- neighboor  
+  	Point cell = new Point(p);
+  	Set<Point> neighboors = new HashSet<Point>();
+  	for (int i = 0; i < actions.size(); i++) {
+		if (((cell.x + actions.get(i).x) < sizeX) && ((cell.y + actions.get(i).y) < sizeY)){
+			cell.translate(actions.get(i).x, actions.get(i).y);
+			neighboors.add(cell);
+			System.out.println("Actions: "+ cell); 
+			cell = new Point(p);
+		}
+	}
+	return neighboors;
+  	//System.out.println("Actions: "+ Arrays.toString(actions.toArray())); print actions
+  }
+
+  public static void bfs(int[][] grid, int gx, int gy, int sx, int sy){ //gx, gy - goal coordinates --- sx, sy - start coordinates
+  	Set<Point> explored = new HashSet<Point>(); //creates explored set of points
+  	Set<Point> inQueue = new HashSet<Point>(); //create inQueue set of points that are in the queue but were not explored
+  	Set<Point> nextCell;
+  	PriorityQueue<Node> fringe = new PriorityQueue<Node>(20); // creates queue of nodes
+  	Point goal = new Point(gx, gy);
+  	Point init = new Point(sx,sy);
+  	Node nodeParent = new Node(goal); //wavefront starting from goal
+  	Node nodeSon;
+  	boolean foundInit = false;
+  	fringe.add(nodeParent);
+  	inQueue.add(goal);
+  	alterGrid(grid, goal, 0);
+  	while (!foundInit && !fringe.isEmpty()){
+  		nodeParent = fringe.poll();
+  		inQueue.remove(nodeParent.getState());
+  		explored.add(goal);
+  		if (nodeParent.getState() == init){
+  			foundInit = true;
+  			alterGrid(grid,nodeParent.getState().x,nodeParent.getState().y,nodeParent.getPathCost());
+  			break;
+  		}
+  		nextCell = reachableCells(nodeParent.getState());
+  		for (Point p : nextCell) {
+			if (!explored.contains(p) && !inQueue.contains(p)){
+				nodeSon = new Node(p,nodeParent,1);
+				fringe.add(nodeSon);
+				inQueue.add(p);
+				alterGrid(grid,p.x,p.y,nodeSon.getPathCost());
+				//System.out.println(""+nodeSon.toString());
+				// TENHO QUE CRIAR UM COMPARATOR PARA O PRIORITYQUEUE
+			}
+		}
+		nextCell.clear();
+	}
+
+  }
+
+ /*
+	Any operations that alterGrid performs on mapRef are such that, for all practical purposes, they are performed on map itself 
+	(except when mapRef is changed to point to a different int[][] instance like mapRef = new int [sizeX][sizeY]) 
+ */
+  public static void alterGrid(int [][] mapRef, int i, int j, int val){
+  		mapRef[i][j] = val;
+  }
+  public static void alterGrid(int [][] mapRef, Point p, int val){
+  		mapRef[p.x][p.y] = val;
+  }
 
 
   public static void main(String[] args){
-  	int [][] map = mapToGrid(20,20,5);
-  	printGrid(map,20,20,5);
+  	actions = new ArrayList<Point>(); //4 - neighboor
+ 	Point act = new Point(-1,0); // North
+  	actions.add(act);
+  	act = new Point(1,0); // South
+  	actions.add(act);
+  	act = new Point(0,1); // East
+  	actions.add(act);
+  	act = new Point(0,-1); // West
+  	actions.add(act);
+  	int [][] map = mapToGrid(10,16,2);
+  	Point obs = new Point(); 
+  	//setting obstacles
+  	alterGrid(map,1,2,-1);
+  	alterGrid(map,2,2,-1);
+  	alterGrid(map,3,2,-1);
+  	alterGrid(map,3,3,-1);
+  	//exemplo de como usar a classe Point
+  	obs.setLocation(2,5); 
+  	alterGrid(map,obs.getLocation(),-1);
+  	//
+  	alterGrid(map,1,5,-1);
+  	alterGrid(map,1,6,-1);
+  	alterGrid(map,2,6,-1);
+  	//
+  	bfs(map,4,7,0,0);
+  	printGrid(map,10,16,2);
     // Line[] lines = {
     //   /* L-shape polygon */
     //   new Line(170,437,60,680),
