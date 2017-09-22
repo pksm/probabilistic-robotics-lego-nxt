@@ -14,8 +14,11 @@ import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.List;
 import java.awt.Point;
-import java.util.PriorityQueue; 
+//import java.util.PriorityQueue; 
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class occupGrid{
   
@@ -46,14 +49,16 @@ public class occupGrid{
 		System.out.println("");
 	}
   }
-  public static Set<Point> reachableCells(Point p){ // 4- neighboor  
+  public static Set<Point> reachableCells(int[][] map, Point p){ // 4- neighboor  
   	Point cell = new Point(p);
   	Set<Point> neighboors = new HashSet<Point>();
   	for (int i = 0; i < actions.size(); i++) {
-		if (((cell.x + actions.get(i).x) < sizeX) && ((cell.y + actions.get(i).y) < sizeY)){
+		if ((((cell.x + actions.get(i).x) >= 0) && ((cell.y + actions.get(i).y) >=0)) && ((cell.x + actions.get(i).x) < sizeX) && ((cell.y + actions.get(i).y) < sizeY)){
+			if (map[(cell.x + actions.get(i).x)][(cell.y + actions.get(i).y)] == -1)
+				continue; 
 			cell.translate(actions.get(i).x, actions.get(i).y);
 			neighboors.add(cell);
-			System.out.println("Actions: "+ cell); 
+			//System.out.println("Actions: "+ cell); 
 			cell = new Point(p);
 		}
 	}
@@ -61,11 +66,12 @@ public class occupGrid{
   	//System.out.println("Actions: "+ Arrays.toString(actions.toArray())); print actions
   }
 
-  public static void bfs(int[][] grid, int gx, int gy, int sx, int sy){ //gx, gy - goal coordinates --- sx, sy - start coordinates
+  public static List<Node> bfs(int[][] grid, int gx, int gy, int sx, int sy){ //gx, gy - goal coordinates --- sx, sy - start coordinates
   	Set<Point> explored = new HashSet<Point>(); //creates explored set of points
   	Set<Point> inQueue = new HashSet<Point>(); //create inQueue set of points that are in the queue but were not explored
   	Set<Point> nextCell;
-  	PriorityQueue<Node> fringe = new PriorityQueue<Node>(20); // creates queue of nodes
+  	//PriorityQueue<Node> fringe = new PriorityQueue<Node>(20); // creates queue of nodes
+  	Queue<Node> fringe = new LinkedList<Node>();
   	Point goal = new Point(gx, gy);
   	Point init = new Point(sx,sy);
   	Node nodeParent = new Node(goal); //wavefront starting from goal
@@ -77,25 +83,23 @@ public class occupGrid{
   	while (!foundInit && !fringe.isEmpty()){
   		nodeParent = fringe.poll();
   		inQueue.remove(nodeParent.getState());
-  		explored.add(goal);
-  		if (nodeParent.getState() == init){
+  		explored.add(nodeParent.getState());
+  		alterGrid(grid,nodeParent.getState(),nodeParent.getPathCost());
+  		if (init.equals(nodeParent.getState())){
   			foundInit = true;
-  			alterGrid(grid,nodeParent.getState().x,nodeParent.getState().y,nodeParent.getPathCost());
   			break;
   		}
-  		nextCell = reachableCells(nodeParent.getState());
+  		nextCell = reachableCells(grid,nodeParent.getState());
   		for (Point p : nextCell) {
 			if (!explored.contains(p) && !inQueue.contains(p)){
 				nodeSon = new Node(p,nodeParent,1);
 				fringe.add(nodeSon);
 				inQueue.add(p);
-				alterGrid(grid,p.x,p.y,nodeSon.getPathCost());
-				//System.out.println(""+nodeSon.toString());
-				// TENHO QUE CRIAR UM COMPARATOR PARA O PRIORITYQUEUE
 			}
 		}
 		nextCell.clear();
 	}
+	return nodeParent.getPathFromRoot();
 
   }
 
@@ -113,6 +117,7 @@ public class occupGrid{
 
   public static void main(String[] args){
   	actions = new ArrayList<Point>(); //4 - neighboor
+  	List<Node> nodePath;
  	Point act = new Point(-1,0); // North
   	actions.add(act);
   	act = new Point(1,0); // South
@@ -136,8 +141,11 @@ public class occupGrid{
   	alterGrid(map,1,6,-1);
   	alterGrid(map,2,6,-1);
   	//
-  	bfs(map,4,7,0,0);
+  	nodePath = bfs(map,4,7,2,3);
   	printGrid(map,10,16,2);
+  	Collections.reverse(nodePath);
+  	for (int i = 0; i < nodePath.size(); i++) 
+  		System.out.println(""+nodePath.get(i).getState());
     // Line[] lines = {
     //   /* L-shape polygon */
     //   new Line(170,437,60,680),
