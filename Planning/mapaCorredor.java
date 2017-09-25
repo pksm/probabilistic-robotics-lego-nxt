@@ -57,7 +57,7 @@ public class mapaCorredor{
     //Rectangle(int x, int y, int width, int height)  -- always integer coordinates
     //Creates a rectangle with top left corner at (x,y) and with specified width and height.
     //Rectangle bounds = new Rectangle(0, -841, 1189, 841);  
-    Rectangle bounds = new Rectangle(0, -140, 3020, 1200); 
+    Rectangle bounds = new Rectangle(0, 850, 3020, 1200); 
     LineMap mymap = new LineMap(lines, bounds);
 
     try{
