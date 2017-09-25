@@ -7,57 +7,57 @@ public class mapaCorredor{
     Line[] lines = {
       /* 1o Quadrante */	
       /* L-shape polygon */
-      new Line(45,524,245,330),
-      new Line(245,330,347,425),
-      new Line(260,505,347,425),
-      new Line(260,505,415,665),
-      new Line(305,775,415,665),
-      new Line(305,775,45,524),
+      new Line(45,524+200,245,330+200),
+      new Line(245,330+200,347,425+200),
+      new Line(260,505+200,347,425+200),
+      new Line(260,505+200,415,665+200),
+      new Line(305,775+200,415,665+200),
+      new Line(305,775+200,45,524+200),
       /* Open Pentagon */
-      new Line(740,-135,515,0),
-      new Line(610,247,515,0),
-      new Line(610,247,880,284),
-      new Line(940,0,880,284),
+      new Line(740,-135+200,515,0+200),
+      new Line(610,247+200,515,0+200),
+      new Line(610,247+200,880,284+200),
+      new Line(940,0+200,880,284+200),
       /* Triangle */
-      new Line(850,545,1130,510),
-      new Line(1009,850,1130,510),
-      new Line(1009,850,850,545),
+      new Line(850,545+200,1130,510+200),
+      new Line(1009,850+200,1130,510+200),
+      new Line(1009,850+200,850,545+200),
 
 	  /* 2o Quadrante */	
       /* Open Pentagon */
-      new Line(1535,573,1715,375),
-      new Line(1935,550,1715,375),
-      new Line(1935,550,1900,795),
-      new Line(1630,780,1900,795),
+      new Line(1535,573+200,1715,375+200),
+      new Line(1935,550+200,1715,375+200),
+      new Line(1935,550+200,1900,795+200),
+      new Line(1630,780+200,1900,795+200),
       /* Triangle */
-      new Line(1390,-101,1550,190),
-      new Line(1210,263,1550,190),
-      new Line(1210,263,1390,-101),
+      new Line(1390,-101+200,1550,190+200),
+      new Line(1210,263+200,1550,190+200),
+      new Line(1210,263+200,1390,-101+200),
  
  	  /* 3o Quadrante */	
       /* L-shape polygon */
-      new Line(1940,20,2310,130),
-      new Line(2210,400,2310,130),
-      new Line(2210,400,2009,360),
-      new Line(2125,260,2009,360),
-      new Line(2125,260,1885,175),
-      new Line(1940,20,1885,175),
+      new Line(1940,20+200,2310,130+200),
+      new Line(2210,400+200,2310,130+200),
+      new Line(2210,400+200,2009,360+200),
+      new Line(2125,260+200,2009,360+200),
+      new Line(2125,260+200,1885,175+200),
+      new Line(1940,20+200,1885,175+200),
       /* Open L-shape polygon */
-      new Line(2200,830,2255,685),
-      new Line(2370,730,2255,685),
-      new Line(2370,730,2443,510),   
-      new Line(2600,560,2443,510), 
-      new Line(2600,560,2455,908),
+      new Line(2200,830+200,2255,685+200),
+      new Line(2370,730+200,2255,685+200),
+      new Line(2370,730+200,2443,510+200),   
+      new Line(2600,560+200,2443,510+200), 
+      new Line(2600,560+200,2455,908+200),
       /* Open Pentagon */
-      new Line(2960,260,2770,433),
-      new Line(2580,253,2770,433),
-      new Line(2580,253,2635,0),
-      new Line(2895,0,2635,0)
+      new Line(2960,260+200,2770,433+200),
+      new Line(2580,253+200,2770,433+200),
+      new Line(2580,253+200,2635,0+200),
+      new Line(2895,0+200,2635,0+200)
     };
     //Rectangle(int x, int y, int width, int height)  -- always integer coordinates
     //Creates a rectangle with top left corner at (x,y) and with specified width and height.
     //Rectangle bounds = new Rectangle(0, -841, 1189, 841);  
-    Rectangle bounds = new Rectangle(0, 850, 3020, 1200); 
+    Rectangle bounds = new Rectangle(0, 1030, 3020, 1200); 
     LineMap mymap = new LineMap(lines, bounds);
 
     try{
