@@ -2,10 +2,18 @@
 Projeto 5 - Parte C - Mapa de Ocupação
 Dado um lineMap transformar em um grid
 */
+        
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+import java.io.IOException;
+import java.io.File;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Image;
 
 public class Grid {
 
-    public int[][] matriz;
+    public boolean[][] matriz;
     private double size;
     private int x, y;
 
@@ -19,7 +27,7 @@ public class Grid {
      * @param y comprimento horizontal
      */
     public Grid (double squareSize, int x, int y) {
-        matriz = new int[x][y];
+        matriz = new boolean[x][y];
         size = squareSize;
         this.x = x;
         this.y = y;
@@ -45,7 +53,7 @@ public class Grid {
             for (int cx = (int) (bx+0.5); cx < ax; cx++) {
                 int cy = (int)(ay + dy * (cx - ax) / dx);
                 if (cx >= 0 && cx < x && cy >= 0 && cy < y)
-                    matriz[cx][cy] = 1;
+                    matriz[cx][cy] = true;
             }
         } else {
             if (by > ay) {
@@ -59,7 +67,7 @@ public class Grid {
             for (int cy = (int) (by+0.5); cy < ay; cy++) {
                 int cx = (int)(ax + dx * (cy - ay) / dy);
                 if (cy >= 0 && cy < y && cx >= 0 && cx < x)
-                    matriz[cx][cy] = 1;
+                    matriz[cx][cy] = true;
             }
         }
     }
@@ -68,17 +76,44 @@ public class Grid {
         String data = "";
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                data += matriz[i][j];
+                data += matriz[i][j] ? 1: 0;
             }
             data += '\n';
         }
         return data;
     }
 
-    public void alterGrid(double x, double y, int value) {
-        x /= squareSize;
-        y /= squareSize;
+    public void alterGrid(double x, double y, boolean value) {
+        x /= size;
+        y /= size;
         matriz[(int) x][(int) y] = value;
+    }
+
+    public void savePNG (String name, int sacale) throws IOException {
+        int type = BufferedImage.TYPE_BYTE_BINARY;
+        BufferedImage im = new BufferedImage(x, y, type);
+
+        int white = (255 << 16) | (255 << 8) | 255;
+        int black = 0;     
+
+        for (int i = 0; i < x; i++) {
+            for (int j = 0; j < y; j++) {
+                int color = matriz[i][j] ? black : white;
+                im.setRGB(i, j, color);
+            }
+        }
+
+        Image scaledImage = im.getScaledInstance(x * sacale, y * sacale, Image.SCALE_SMOOTH);
+        BufferedImage newImage = new BufferedImage(
+            scaledImage.getWidth(null),
+            scaledImage.getHeight(null),
+            BufferedImage.TYPE_BYTE_BINARY
+        ); 
+        Graphics2D graph = newImage.createGraphics();
+        graph.drawImage(scaledImage, 0, 0, null);
+        graph.dispose(); 
+        File outputfile = new File(name+".png");
+        ImageIO.write(newImage, "png", outputfile);
     }
 
     public static void main(String[] args) {
@@ -100,5 +135,10 @@ public class Grid {
         grid.addLine(725,490,480,525);
         grid.addLine(480,525,335,345);
         System.out.println(grid);
+        try {
+            grid.savePNG ("checker", 2);
+        } catch (IOException e) {
+            System.out.println("Error to save image.");
+        }
     }
 }
