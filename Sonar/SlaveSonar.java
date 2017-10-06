@@ -13,6 +13,7 @@ public class SlaveSonar {
 	private static final byte EXIT = 4; 
 
 	static UltrasonicSensor sonar;
+	static DataOutputStream dos;
 
 	public static void main(String[] args) throws Exception {
 		USBConnection btc = USB.waitForConnection(); /* USB communication */
@@ -21,8 +22,8 @@ public class SlaveSonar {
 		DataInputStream dis = btc.openDataInputStream();
 		DataOutputStream dos = btc.openDataOutputStream();
 		// MOTOR A is being used to rotate the sonar
-		DifferentialPilot pilot = new DifferentialPilot(5.6f, 11.2f, Motor.C, Motor.B); // (wheel diameter, dist between wheels, left motor, right motor )
-		sonar = new UltrasonicSensor(SensorPort.S1);
+		DifferentialPilot pilot = new DifferentialPilot(5.6f, 11.2f, Motor.B, Motor.A); // (wheel diameter, dist between wheels, left motor, right motor )
+		sonar = new UltrasonicSensor(SensorPort.S4);
 
 		LCD.drawString("READY", 0, 10);
 		while (true) {
@@ -41,10 +42,13 @@ public class SlaveSonar {
 					dos.writeFloat(0);
 					break;
 				case FULL_SCAN:
-					dos.writeSomething(fullscan());
+					fullscan();
+					dos.writeFloat(-20f);
 					break;	
 				case SINGLE_SCAN:
-					dos.writeInt(sonar.getDistance());
+					int val = sonar.getDistance();
+					System.out.println(""+ val);
+					dos.writeFloat((float)val);
 					break;
 				case EXIT:
 					System.exit(1);
@@ -53,25 +57,63 @@ public class SlaveSonar {
 				}
 				dos.flush();
 				
-			} catch (IOException ioe) {
-				System.err.println("IO Exception");
+			} catch (Exception e) {
+				System.err.println("FERROU");
 				Thread.sleep(2000);
 				System.exit(1);
 			}
 		}
 	}
 
-	public static double[] fullscan(){
-		//Motor A rotates to 0 degrees and rotates 30 degrees and read a measurement
-		int x = 0;
-		Motor.A.rotateTo(x);
-		double[] values = new double[90];
-		for (int i=0; i < 90; i++){
-			Delay.msDelay(100);
-			values[i] = sonar.getDistance();
-			x+=2; 
-			Motor.A.rotateTo(x);
-		}
-		return values;
+	public static void fullscan() throws IOException{
+	   int val = 0;
+	   Motor.C.setSpeed(100);
+       //System.out.println("Inicial "+ Motor.C.getTachoCount() );
+       val = sonar.getDistance();
+       dos.writeFloat((float)val);
+       Motor.C.rotate(450);
+       //System.out.println("Metade da direita "+ Motor.C.getTachoCount() + " " + sonar.getDistance());
+       val = sonar.getDistance();
+       dos.writeFloat((float)val);
+       Motor.C.rotate(-900);
+       //System.out.println("Metade da esquerda "+ Motor.C.getTachoCount() + " " + sonar.getDistance() );
+       val = sonar.getDistance();
+       dos.writeFloat((float)val);
+       Motor.C.rotate(450);
+       //System.out.println("Meio "+ Motor.C.getTachoCount() + " " + sonar.getDistance());
+       val = sonar.getDistance();
+       dos.writeFloat((float)val);
+       //Motor.C.resetTachoCount();
+       //System.out.println("Meio depois do reset "+ Motor.C.getTachoCount()+ " " + sonar.getDistance() );
+       Motor.C.rotate(450);
+       val = sonar.getDistance();
+       dos.writeFloat((float)val);
+       //System.out.println("Metade da direita "+ Motor.C.getTachoCount() + " " + sonar.getDistance() );
+       Motor.C.rotate(-900);
+       val = sonar.getDistance();
+       dos.writeFloat((float)val);
+       //System.out.println("Metade da esquerda "+ Motor.C.getTachoCount()  + " " + sonar.getDistance());
+       Motor.C.rotate(450);
+       val = sonar.getDistance();
+       dos.writeFloat((float)val);
+       //System.out.println("Meio "+ Motor.C.getTachoCount() + " " + sonar.getDistance() );
+
+
+
+		// //Motor A rotates to 0 degrees and rotates 30 degrees and read a measurement
+		// int x = 450;
+		// Motor.C.rotate(x);
+		// double[] values = new double[90];
+		// for (int i=0; i < 90; i++){
+		// 	Delay.msDelay(100);
+		// 	values[i] = sonar.getDistance();
+		// 	x-=10; 
+		// 	Motor.C.rotate(x);
+		// }
+
+		// for (int i=0; i < 90; i++){
+		// 	System.out.println("Pos "+i + " "+ values[i]);
+		// 	Button.waitForAnyPress();
+		// }
 	}
 }

@@ -1,6 +1,7 @@
 import lejos.pc.comm.*;
 import java.util.Scanner;
 import java.io.*;
+import lejos.util.Delay;
 
 public class MasterSonar {
 	private static final byte TRAVEL = 0; 
@@ -12,32 +13,31 @@ public class MasterSonar {
 	private NXTComm nxtComm;
 	//private DataOutputStream dos;
 	//private DataInputStream dis;	
-	private ObjectOutputStream oos;
-	private ObjectInputStream ois;
+	private DataOutputStream dos;
+	private DataInputStream dis;
 	
-	private static final String NXT_ID = "NXT06"; // NXT BRICK ID
+	private static final String NXT_ID = "NXT"; // NXT BRICK ID
 
-	private float sendCommand(byte command, int param) throws Exception{ // used by functions 0 and 1
+	private float sendCommand(byte command, int param) { // used by functions 0 and 1
 		try {
-			oos.writeByte(command);
-			oos.writeInt(param);
-			oos.flush();
-			return ois.readFloat();
+			dos.writeByte(command);
+			dos.writeInt(param);
+			dos.flush();
+			Delay.msDelay(40000);
+			float read=20;
+			if (command == 2){
+				System.out.println("heyyy");
+				while(Math.abs(read + 20f) > 0.1){
+					read = dis.readFloat();
+					System.out.println("Sonar Values " + read);
+				}
+				return 0f;
+			}
+			else return dis.readFloat();
 		} catch (IOException ioe) {
-			System.err.println("IO Exception");
+			System.err.println("IO Exception "+ ioe);
 			System.exit(1);
 			return -1f;
-		}
-	}
-	private Object sendCommand(byte command) throws Exception { //used by functions 2 and 3
-		try {
-			oos.writeByte(command);
-			oos.flush();
-			return ois.readObject();
-		} catch (IOException ioe) {
-			System.err.println("IO Exception");
-			System.exit(1);
-			return false;
 		}
 	}
 
@@ -58,8 +58,8 @@ public class MasterSonar {
 				System.exit(1);
 			}
 			
-			ois = new ObjectInputStream(nxtComm.getInputStream());
-			oos = new ObjectOutputStream(nxtComm.getOutputStream());
+			dis = new DataInputStream(nxtComm.getInputStream());
+			dos = new DataOutputStream(nxtComm.getOutputStream());
 			
 		} catch (NXTCommException e) {
 			System.err.println("NXTComm Exception: "  + e.getMessage());
@@ -67,20 +67,20 @@ public class MasterSonar {
 		}
 	}		
 
-	private void close() throws Exception{
+	private void close() {
 		try {
-			oos.writeByte(EXIT);
-			//oos.writeFloat(0f);
-			//oos.writeFloat(0f);
-			oos.flush();
+			dos.writeByte(EXIT);
+			//dos.writeFloat(0f);
+			//dos.writeFloat(0f);
+			dos.flush();
 			Thread.sleep(200);
 			System.exit(0);
 		} catch (Exception ioe) {
 			System.err.println("IO Exception");
 		}
 	}	
-	public static void main(String[] args) throws Exception{
-		byte cmd = 0; int param = 0; float ret=0f; double[] readings; int singleRead = -1;
+	public static void main(String[] args) throws IOException{
+		byte cmd = 0; int param = 0; float ret=0f; float readings; float singleRead = -1;
 		MasterSonar master = new MasterSonar();
 		master.connect();
 	    Scanner scan = new Scanner( System.in );	    
@@ -94,15 +94,12 @@ public class MasterSonar {
 	    		System.out.println("cmd: " + cmd + " Parameter: " + param +" return: " + ret);
 	    		param = 0;
 	    	} 
-	    	if (cmd == 2){
-	    		readings = (double[]) master.sendCommand(cmd);
-	    		System.out.println("cmd: " + cmd + "Sonar Values...");
-	    		for (int i=0; i < readings.length; i++){
-	    			System.out.println("N." + i + "Value: "+ readings[i]);
-	    		}
+	    	else if (cmd == 2){
+	    		readings = master.sendCommand(cmd,param);
+	    		System.out.println("cmd: " + cmd + "Sonar Values " + readings);
 	    	}
 	    	else{
-	    		singleRead = (int) master.sendCommand(cmd);
+	    		singleRead = master.sendCommand(cmd,param);
 	    		System.out.println("Value: "+ singleRead);
 	    	}
 	    }
