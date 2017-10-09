@@ -10,12 +10,15 @@ import java.io.File;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.Image;
+import java.awt.Color;
 
-public class Grid {
 
-    public boolean[][] matriz;
+public class Grid implements Cloneable {
+
+    private double[][] matriz;
+    private boolean[][] red;
     private double size;
-    private int x, y;
+    public int x, y;
 
     /**
      * @brief Classe para desenhar segmentos em uma matriz
@@ -26,11 +29,12 @@ public class Grid {
      * @param x comprimento vertical
      * @param y comprimento horizontal
      */
-    public Grid (double squareSize, int x, int y) {
-        matriz = new boolean[x][y];
+    public Grid (double squareSize, double x, double y) {
         size = squareSize;
-        this.x = x;
-        this.y = y;
+        matriz = new double[getI(x)][getJ(y)];
+        red = new boolean[getI(x)][getJ(y)];
+        this.x = getI(x);
+        this.y = getJ(y);
     }
 
     public void addLine (double ax, double ay, double bx, double by) {
@@ -53,7 +57,7 @@ public class Grid {
             for (int cx = (int) (bx+0.5); cx < ax; cx++) {
                 int cy = (int)(ay + dy * (cx - ax) / dx);
                 if (cx >= 0 && cx < x && cy >= 0 && cy < y)
-                    matriz[cx][cy] = true;
+                    matriz[cx][cy] = 1;
             }
         } else {
             if (by > ay) {
@@ -67,7 +71,7 @@ public class Grid {
             for (int cy = (int) (by+0.5); cy < ay; cy++) {
                 int cx = (int)(ax + dx * (cy - ay) / dy);
                 if (cy >= 0 && cy < y && cx >= 0 && cx < x)
-                    matriz[cx][cy] = true;
+                    matriz[cx][cy] = 1;
             }
         }
     }
@@ -76,30 +80,62 @@ public class Grid {
         String data = "";
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                data += matriz[i][j] ? 1: 0;
+                data += matriz[i][j] > 0 ? 1: 0;
             }
             data += '\n';
         }
         return data;
     }
 
-    public void alterGrid(double x, double y, boolean value) {
+    public void set(double x, double y, double value) {
+        matriz[getI(x)][getJ(y)] = value;
+    }
+
+     public void set(int x, int y, double value) {
+        matriz[x][y] = value;
+    }
+
+    public double get(double x, double y) {
+        return matriz[getI(x)][getJ(y)];
+    }
+
+    public double get(int x, int y) {
+        return matriz[x][y];
+    }
+
+    public int getI(double x) {
         x /= size;
+        return (int) x;
+    }
+
+
+    public int getJ(double y) {
         y /= size;
-        matriz[(int) x][(int) y] = value;
+        return (int) y;
+    }
+
+    public void mark (double x, double y) {
+        red[getI(x)][getJ(y)] = true;
+    }
+
+    public void mark (int x, int y) {
+        red[x][y] = true;
     }
 
     public void savePNG (String name, int sacale) throws IOException {
-        int type = BufferedImage.TYPE_BYTE_BINARY;
+        int type = BufferedImage.TYPE_INT_ARGB;
         BufferedImage im = new BufferedImage(x, y, type);
-
-        int white = (255 << 16) | (255 << 8) | 255;
-        int black = 0;     
 
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
-                int color = matriz[i][j] ? black : white;
-                im.setRGB(i, j, color);
+                Color color;
+                if (red[i][y-j-1]) {
+                    color = new Color(1.0f, 0f, 0f);
+                } else {
+                    float value = (float)(1-matriz[i][y-j-1]);
+                    color = new Color(value, value, value);
+                }
+                im.setRGB(i, j, color.getRGB());
             }
         }
 
@@ -107,7 +143,7 @@ public class Grid {
         BufferedImage newImage = new BufferedImage(
             scaledImage.getWidth(null),
             scaledImage.getHeight(null),
-            BufferedImage.TYPE_BYTE_BINARY
+            type
         ); 
         Graphics2D graph = newImage.createGraphics();
         graph.drawImage(scaledImage, 0, 0, null);
@@ -116,8 +152,48 @@ public class Grid {
         ImageIO.write(newImage, "png", outputfile);
     }
 
+    public void dilation () {
+        boolean[][] mask  = {
+            {true,true,true},
+            {true,true,true},
+            {true,true,true}
+        };
+        dilation(mask);
+    }
+
+    public void dilation (boolean[][] v) {
+        if (v.length%2 == 0 || v[0].length%2 == 0)
+            return;
+        boolean[][] copy = new boolean[x][y];
+        
+        for(int i = 0; i < x; i++) {
+            for(int j = 0; j < y; j++) {
+                if (get(i, j) >= 1.0)
+                    copy[i][j] = true;
+            }
+        }
+
+        for(int i = 0; i < x; i++) {
+            for(int j = 0; j < y; j++) {
+                if (!copy[i][j]) continue;
+                for(int ii = 0; ii < v.length; ii++) {
+                    for(int jj = 0; jj < v[ii].length; jj++) {
+                        int xx = i - v.length/2 + ii;
+                        int yy = j - v[ii].length/2 + jj;
+                        if (xx < x && xx >= 0 &&
+                            yy < y && yy >= 0 &&
+                            v[ii][jj]) {
+                            set(xx, yy, get(i, j));
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
-        Grid grid =  new Grid(9.5, 120, 120);
+        Grid grid =  new Grid(5, 1200, 900);
         grid.addLine(170,437,60,680);
         grid.addLine(60,680,398,800);
         grid.addLine(398,800,450,677);
@@ -134,9 +210,21 @@ public class Grid {
         grid.addLine(700,225, 725,490);
         grid.addLine(725,490,480,525);
         grid.addLine(480,525,335,345);
-        System.out.println(grid);
+
+        boolean[][] mask  = {
+            {true,true,true},
+            {true,true,true},
+            {true,true,true}
+        };
+        grid.dilation(mask);
+        grid.dilation(mask);
+        grid.dilation(mask);
+        grid.dilation(mask);
+
+        grid.mark(40, 40);
+
         try {
-            grid.savePNG ("checker", 2);
+            grid.savePNG ("images/dilation", 4);
         } catch (IOException e) {
             System.out.println("Error to save image.");
         }
