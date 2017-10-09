@@ -2,6 +2,7 @@ import lejos.pc.comm.*;
 import java.util.Scanner;
 import java.io.*;
 import lejos.util.Delay;
+import java.util.ArrayList;
 
 public class MasterSonar {
 	private static final byte TRAVEL = 0; 
@@ -15,30 +16,38 @@ public class MasterSonar {
 	//private DataInputStream dis;	
 	private DataOutputStream dos;
 	private DataInputStream dis;
-	
-	private static final String NXT_ID = "NXT"; // NXT BRICK ID
 
-	private float sendCommand(byte command, int param) { // used by functions 0 and 1
+	
+	private static final String NXT_ID = "PKSM"; // NXT BRICK ID
+
+	private String sendCommand(byte command) throws IOException{ //working
+		try {
+			dos.writeByte(command);
+			dos.writeInt(0);
+			dos.flush();
+
+		} catch (IOException ioe) {
+			System.err.println("IO Exception "+ ioe);
+			System.exit(1);
+			return "Error";
+		}
+		return dis.readUTF();
+	}
+
+
+
+	private ArrayList<Integer> sendCommand(byte command, int param) { // used by functions 0 and 1
+		ArrayList<Integer> list = new ArrayList<>();
 		try {
 			dos.writeByte(command);
 			dos.writeInt(param);
 			dos.flush();
-			Delay.msDelay(40000);
-			float read=20;
-			if (command == 2){
-				System.out.println("heyyy");
-				while(Math.abs(read + 20f) > 0.1){
-					read = dis.readFloat();
-					System.out.println("Sonar Values " + read);
-				}
-				return 0f;
-			}
-			else return dis.readFloat();
+			list.add(dis.readInt());
 		} catch (IOException ioe) {
 			System.err.println("IO Exception "+ ioe);
 			System.exit(1);
-			return -1f;
 		}
+		return list;
 	}
 
 	private void connect() throws IOException {
@@ -67,20 +76,26 @@ public class MasterSonar {
 		}
 	}		
 
-	private void close() {
-		try {
-			dos.writeByte(EXIT);
-			//dos.writeFloat(0f);
-			//dos.writeFloat(0f);
-			dos.flush();
-			Thread.sleep(200);
-			System.exit(0);
-		} catch (Exception ioe) {
-			System.err.println("IO Exception");
-		}
-	}	
+	// private void close() {
+	// 	try {
+	// 		//System.out.println("byee");
+	// 		dos.writeByte(EXIT);
+	// 		dos.writeInt(0);
+	// 		dos.flush();
+	// 		Thread.sleep(400);
+	// 		//System.out.println("bcloss");
+	// 		nxtComm.close();
+	// 		dis.close();
+	// 		dos.close();
+	// 		//System.exit(0);
+	// 	} catch (Exception ioe) {
+	// 		System.err.println("IO Exception Paula " + ioe);
+	// 	}
+	// }	
 	public static void main(String[] args) throws IOException{
-		byte cmd = 0; int param = 0; float ret=0f; float readings; float singleRead = -1;
+		byte cmd = 0; int param = 0; String s=""; 
+		ArrayList<Integer> ret ;
+		//float ret=0f; float readings; float singleRead = -1;
 		MasterSonar master = new MasterSonar();
 		master.connect();
 	    Scanner scan = new Scanner( System.in );	    
@@ -91,16 +106,16 @@ public class MasterSonar {
 	    		System.out.println("Enter integer parameter: ");
 	    		param = scan.nextInt();
 	    		ret = master.sendCommand(cmd, param); 
-	    		System.out.println("cmd: " + cmd + " Parameter: " + param +" return: " + ret);
+	    		System.out.println("cmd: " + cmd + " Parameter: " + param +" return: " + ret.toString());
 	    		param = 0;
 	    	} 
 	    	else if (cmd == 2){
-	    		readings = master.sendCommand(cmd,param);
-	    		System.out.println("cmd: " + cmd + "Sonar Values " + readings);
+	    		s = master.sendCommand(cmd);
+	    		System.out.println("cmd: " + cmd + " Sonar Values " + s);
 	    	}
 	    	else{
-	    		singleRead = master.sendCommand(cmd,param);
-	    		System.out.println("Value: "+ singleRead);
+	    		ret = master.sendCommand(cmd,param);
+	    		System.out.println("Value: "+ ret.toString());
 	    	}
 	    }
 	}

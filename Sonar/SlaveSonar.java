@@ -35,85 +35,52 @@ public class SlaveSonar {
 				switch (cmd) {
 				case TRAVEL: 
 					pilot.travel(param);
-					dos.writeFloat(0);
+					dos.writeInt(0);
 					break;
 				case ROTATE: 
 					pilot.rotate(param);
-					dos.writeFloat(0);
+					dos.writeInt(0);
 					break;
 				case FULL_SCAN:
-					fullscan();
-					dos.writeFloat(-20f);
+					String values = fullscan();
+					dos.writeUTF(values);
 					break;	
 				case SINGLE_SCAN:
 					int val = sonar.getDistance();
 					System.out.println(""+ val);
-					dos.writeFloat((float)val);
+					dos.writeInt(val);
 					break;
 				case EXIT:
-					System.exit(1);
+					System.out.println("close");
+					dis.close();
+					dos.close();
+					btc.close();
+					System.exit(0);
 				default:
-					dos.writeFloat(-1);
+					dos.writeInt(-1);
 				}
 				dos.flush();
 				
 			} catch (Exception e) {
-				System.err.println("FERROU");
+				System.err.println("FERROU "+ e);
 				Thread.sleep(2000);
 				System.exit(1);
 			}
 		}
 	}
-
-	public static void fullscan() throws IOException{
-	   int val = 0;
-	   Motor.C.setSpeed(100);
-       //System.out.println("Inicial "+ Motor.C.getTachoCount() );
-       val = sonar.getDistance();
-       dos.writeFloat((float)val);
-       Motor.C.rotate(450);
-       //System.out.println("Metade da direita "+ Motor.C.getTachoCount() + " " + sonar.getDistance());
-       val = sonar.getDistance();
-       dos.writeFloat((float)val);
-       Motor.C.rotate(-900);
-       //System.out.println("Metade da esquerda "+ Motor.C.getTachoCount() + " " + sonar.getDistance() );
-       val = sonar.getDistance();
-       dos.writeFloat((float)val);
-       Motor.C.rotate(450);
-       //System.out.println("Meio "+ Motor.C.getTachoCount() + " " + sonar.getDistance());
-       val = sonar.getDistance();
-       dos.writeFloat((float)val);
-       //Motor.C.resetTachoCount();
-       //System.out.println("Meio depois do reset "+ Motor.C.getTachoCount()+ " " + sonar.getDistance() );
-       Motor.C.rotate(450);
-       val = sonar.getDistance();
-       dos.writeFloat((float)val);
-       //System.out.println("Metade da direita "+ Motor.C.getTachoCount() + " " + sonar.getDistance() );
-       Motor.C.rotate(-900);
-       val = sonar.getDistance();
-       dos.writeFloat((float)val);
-       //System.out.println("Metade da esquerda "+ Motor.C.getTachoCount()  + " " + sonar.getDistance());
-       Motor.C.rotate(450);
-       val = sonar.getDistance();
-       dos.writeFloat((float)val);
-       //System.out.println("Meio "+ Motor.C.getTachoCount() + " " + sonar.getDistance() );
-
-
-
-		// //Motor A rotates to 0 degrees and rotates 30 degrees and read a measurement
-		// int x = 450;
-		// Motor.C.rotate(x);
-		// double[] values = new double[90];
-		// for (int i=0; i < 90; i++){
-		// 	Delay.msDelay(100);
-		// 	values[i] = sonar.getDistance();
-		// 	x-=10; 
-		// 	Motor.C.rotate(x);
-		// }
-
-		// for (int i=0; i < 90; i++){
-		// 	System.out.println("Pos "+i + " "+ values[i]);
-		// 	Button.waitForAnyPress();
-		// }
+	public static String fullscan() throws IOException{ //teste do método
+		int val = 0;
+		//Motor.C.setSpeed(100);
+		String values = "I";
+		values += "|";
+		for (int i=0; i <= 300; i++){
+			val = sonar.getDistance();
+		    values += val;
+		    values += "|";
+		    Delay.msDelay(100);
+		    System.out.println(val);
+		}
+		values += "E";
+		return values;
 	}
 }
