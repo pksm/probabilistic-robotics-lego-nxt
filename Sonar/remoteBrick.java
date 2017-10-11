@@ -3,6 +3,8 @@ import lejos.nxt.Motor;
 import lejos.util.Delay;
 import lejos.nxt.SensorPort;
 import lejos.nxt.UltrasonicSensor;
+import java.util.Scanner;
+
 
 public class remoteBrick {
     static DifferentialPilot pilot;
@@ -16,9 +18,12 @@ public class remoteBrick {
 
     public static void main(String[] args){
         Delay.msDelay(2000);
+        Scanner scan = new Scanner ( System.in );
         byte cmd = 0; int param = 0;
         pilot = new DifferentialPilot(5.6f, 11.2f, Motor.B, Motor.A);
         sonar = new UltrasonicSensor(SensorPort.S4);
+        pilot.setTravelSpeed(10);
+        pilot.setRotateSpeed(20);
         while(true) {
             System.out.print("Enter command [0:TRAVEL 1:ROTATE 2:FULL_SCAN 3:SINGLE_SCAN 4:EXIT]: ");
             cmd = (byte) scan.nextFloat(); 
