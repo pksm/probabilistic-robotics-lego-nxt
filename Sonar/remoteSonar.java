@@ -40,7 +40,7 @@ public class remoteSonar {
                 case ROTATE: 
                     pilot.rotate(param);
                     getNewAngle(param);
-                    System.out.println(""+ angle);
+                    System.out.println("Current angle: "+ angle);
                     break;
                 case FULL_SCAN:
                     fullscan();
