@@ -1,0 +1,498 @@
+RP.java:3: error: interface expected here
+public interface RP extends PApplet{
+                            ^
+Experiment.java:7: error: cannot find symbol
+		Cons c1 = new Cons(c);
+		^
+  symbol:   class Cons
+  location: class Experiment
+Experiment.java:7: error: cannot find symbol
+		Cons c1 = new Cons(c);
+		              ^
+  symbol:   class Cons
+  location: class Experiment
+ProcessingSource.java:145: error: cannot find symbol
+		r = c.get();
+		^
+  symbol:   variable r
+  location: class ProcessingSource
+ProcessingSource.java:145: error: cannot find symbol
+		r = c.get();
+		    ^
+  symbol:   variable c
+  location: class ProcessingSource
+ProcessingSource.java:146: error: cannot find symbol
+		iAngle = r.getAngle();
+		         ^
+  symbol:   variable r
+  location: class ProcessingSource
+ProcessingSource.java:147: error: cannot find symbol
+		iDistance = r.getDistance();
+		            ^
+  symbol:   variable r
+  location: class ProcessingSource
+RP.java:45: error: cannot find symbol
+		size(800,600);
+		^
+  symbol:   method size(int,int)
+  location: class RadarProcessing
+RP.java:50: error: cannot find symbol
+		size (800, 600);
+		^
+  symbol:   method size(int,int)
+  location: class RadarProcessing
+RP.java:51: error: cannot find symbol
+		smooth();
+		^
+  symbol:   method smooth()
+  location: class RadarProcessing
+RP.java:54: error: incompatible types: RadarProcessing cannot be converted to PApplet
+			ps[i] = new ProcessingSource(this);
+			                             ^
+RP.java:60: error: cannot find symbol
+		pushMatrix();
+		^
+  symbol:   method pushMatrix()
+  location: class RadarProcessing
+RP.java:61: error: cannot find symbol
+		translate((float)width/2,(float)(height-height*0.074));
+		                 ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:61: error: cannot find symbol
+		translate((float)width/2,(float)(height-height*0.074));
+		                                 ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:61: error: cannot find symbol
+		translate((float)width/2,(float)(height-height*0.074));
+		                                        ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:61: error: cannot find symbol
+		translate((float)width/2,(float)(height-height*0.074));
+		^
+  symbol:   method translate(float,float)
+  location: class RadarProcessing
+RP.java:62: error: cannot find symbol
+		noFill();
+		^
+  symbol:   method noFill()
+  location: class RadarProcessing
+RP.java:63: error: cannot find symbol
+		strokeWeight(2);
+		^
+  symbol:   method strokeWeight(int)
+  location: class RadarProcessing
+RP.java:64: error: cannot find symbol
+		stroke(98,245,31);
+		^
+  symbol:   method stroke(int,int,int)
+  location: class RadarProcessing
+RP.java:66: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.0625),(float)(width-width*0.0625),PI,TWO_PI);
+		                                  ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:66: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.0625),(float)(width-width*0.0625),PI,TWO_PI);
+		                                        ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:66: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.0625),(float)(width-width*0.0625),PI,TWO_PI);
+		                                                              ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:66: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.0625),(float)(width-width*0.0625),PI,TWO_PI);
+		                                                                    ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:66: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.0625),(float)(width-width*0.0625),PI,TWO_PI);
+		                                                                                  ^
+  symbol:   variable PI
+  location: class RadarProcessing
+RP.java:66: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.0625),(float)(width-width*0.0625),PI,TWO_PI);
+		                                                                                     ^
+  symbol:   variable TWO_PI
+  location: class RadarProcessing
+RP.java:67: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.27),(float)(width-width*0.27),PI,TWO_PI);
+		                                  ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:67: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.27),(float)(width-width*0.27),PI,TWO_PI);
+		                                        ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:67: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.27),(float)(width-width*0.27),PI,TWO_PI);
+		                                                            ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:67: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.27),(float)(width-width*0.27),PI,TWO_PI);
+		                                                                  ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:67: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.27),(float)(width-width*0.27),PI,TWO_PI);
+		                                                                              ^
+  symbol:   variable PI
+  location: class RadarProcessing
+RP.java:67: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.27),(float)(width-width*0.27),PI,TWO_PI);
+		                                                                                 ^
+  symbol:   variable TWO_PI
+  location: class RadarProcessing
+RP.java:68: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.479),(float)(width-width*0.479),PI,TWO_PI);
+		                                  ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:68: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.479),(float)(width-width*0.479),PI,TWO_PI);
+		                                        ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:68: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.479),(float)(width-width*0.479),PI,TWO_PI);
+		                                                             ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:68: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.479),(float)(width-width*0.479),PI,TWO_PI);
+		                                                                   ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:68: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.479),(float)(width-width*0.479),PI,TWO_PI);
+		                                                                                ^
+  symbol:   variable PI
+  location: class RadarProcessing
+RP.java:68: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.479),(float)(width-width*0.479),PI,TWO_PI);
+		                                                                                   ^
+  symbol:   variable TWO_PI
+  location: class RadarProcessing
+RP.java:69: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.687),(float)(width-width*0.687),PI,TWO_PI);
+		                                  ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:69: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.687),(float)(width-width*0.687),PI,TWO_PI);
+		                                        ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:69: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.687),(float)(width-width*0.687),PI,TWO_PI);
+		                                                             ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:69: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.687),(float)(width-width*0.687),PI,TWO_PI);
+		                                                                   ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:69: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.687),(float)(width-width*0.687),PI,TWO_PI);
+		                                                                                ^
+  symbol:   variable PI
+  location: class RadarProcessing
+RP.java:69: error: cannot find symbol
+		arc((float)0.0,(float)0.0,(float)(width-width*0.687),(float)(width-width*0.687),PI,TWO_PI);
+		                                                                                   ^
+  symbol:   variable TWO_PI
+  location: class RadarProcessing
+RP.java:71: error: cannot find symbol
+		line(-width/2,0,width/2,0);
+		      ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:71: error: cannot find symbol
+		line(-width/2,0,width/2,0);
+		                ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:72: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(30)),(-width/2)*sin(radians(30)));
+		           ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:72: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(30)),(-width/2)*sin(radians(30)));
+		                        ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:72: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(30)),(-width/2)*sin(radians(30)));
+		                                       ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:72: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(30)),(-width/2)*sin(radians(30)));
+		                                                    ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:73: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(60)),(-width/2)*sin(radians(60)));
+		           ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:73: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(60)),(-width/2)*sin(radians(60)));
+		                        ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:73: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(60)),(-width/2)*sin(radians(60)));
+		                                       ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:73: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(60)),(-width/2)*sin(radians(60)));
+		                                                    ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:74: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(90)),(-width/2)*sin(radians(90)));
+		           ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:74: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(90)),(-width/2)*sin(radians(90)));
+		                        ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:74: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(90)),(-width/2)*sin(radians(90)));
+		                                       ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:74: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(90)),(-width/2)*sin(radians(90)));
+		                                                    ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:75: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(120)),(-width/2)*sin(radians(120)));
+		           ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:75: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(120)),(-width/2)*sin(radians(120)));
+		                        ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:75: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(120)),(-width/2)*sin(radians(120)));
+		                                        ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:75: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(120)),(-width/2)*sin(radians(120)));
+		                                                     ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:76: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(150)),(-width/2)*sin(radians(150)));
+		           ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:76: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(150)),(-width/2)*sin(radians(150)));
+		                        ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:76: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(150)),(-width/2)*sin(radians(150)));
+		                                        ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:76: error: cannot find symbol
+		line(0,0,(-width/2)*cos(radians(150)),(-width/2)*sin(radians(150)));
+		                                                     ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:77: error: cannot find symbol
+		line((-width/2)*cos(radians(30)),0,width/2,0);
+		       ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:77: error: cannot find symbol
+		line((-width/2)*cos(radians(30)),0,width/2,0);
+		                    ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:77: error: cannot find symbol
+		line((-width/2)*cos(radians(30)),0,width/2,0);
+		                                   ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:78: error: cannot find symbol
+		popMatrix();
+		^
+  symbol:   method popMatrix()
+  location: class RadarProcessing
+RP.java:83: error: cannot find symbol
+		pushMatrix();
+		^
+  symbol:   method pushMatrix()
+  location: class RadarProcessing
+RP.java:84: error: cannot find symbol
+		translate((float)(width/2),(float)(height-height*0.074));
+		                  ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:84: error: cannot find symbol
+		translate((float)(width/2),(float)(height-height*0.074));
+		                                   ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:84: error: cannot find symbol
+		translate((float)(width/2),(float)(height-height*0.074));
+		                                          ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:84: error: cannot find symbol
+		translate((float)(width/2),(float)(height-height*0.074));
+		^
+  symbol:   method translate(float,float)
+  location: class RadarProcessing
+RP.java:85: error: cannot find symbol
+		strokeWeight(9);
+		^
+  symbol:   method strokeWeight(int)
+  location: class RadarProcessing
+RP.java:86: error: cannot find symbol
+		stroke(255,10,10);
+		^
+  symbol:   method stroke(int,int,int)
+  location: class RadarProcessing
+RP.java:87: error: cannot find symbol
+		pixsDistance = iDistance*((float)((height-height*0.1666)*0.025)); // covers the distance from the sensor from cm to pixels
+		                                   ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:87: error: cannot find symbol
+		pixsDistance = iDistance*((float)((height-height*0.1666)*0.025)); // covers the distance from the sensor from cm to pixels
+		                                          ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:90: error: cannot find symbol
+			line(pixsDistance*cos(radians(iAngle)),-pixsDistance*sin(radians(iAngle)),(float)(width-width*0.505)*cos(radians(iAngle)),(float)-(width-width*0.505)*sin(radians(iAngle)));
+			                      ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:90: error: cannot find symbol
+			line(pixsDistance*cos(radians(iAngle)),-pixsDistance*sin(radians(iAngle)),(float)(width-width*0.505)*cos(radians(iAngle)),(float)-(width-width*0.505)*sin(radians(iAngle)));
+			                                                         ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:90: error: cannot find symbol
+			line(pixsDistance*cos(radians(iAngle)),-pixsDistance*sin(radians(iAngle)),(float)(width-width*0.505)*cos(radians(iAngle)),(float)-(width-width*0.505)*sin(radians(iAngle)));
+			                                                                                  ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:90: error: cannot find symbol
+			line(pixsDistance*cos(radians(iAngle)),-pixsDistance*sin(radians(iAngle)),(float)(width-width*0.505)*cos(radians(iAngle)),(float)-(width-width*0.505)*sin(radians(iAngle)));
+			                                                                                        ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:90: error: cannot find symbol
+			line(pixsDistance*cos(radians(iAngle)),-pixsDistance*sin(radians(iAngle)),(float)(width-width*0.505)*cos(radians(iAngle)),(float)-(width-width*0.505)*sin(radians(iAngle)));
+			                                                                                                         ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:90: error: cannot find symbol
+			line(pixsDistance*cos(radians(iAngle)),-pixsDistance*sin(radians(iAngle)),(float)(width-width*0.505)*cos(radians(iAngle)),(float)-(width-width*0.505)*sin(radians(iAngle)));
+			                                                                                                                                   ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:90: error: cannot find symbol
+			line(pixsDistance*cos(radians(iAngle)),-pixsDistance*sin(radians(iAngle)),(float)(width-width*0.505)*cos(radians(iAngle)),(float)-(width-width*0.505)*sin(radians(iAngle)));
+			                                                                                                                                         ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:90: error: cannot find symbol
+			line(pixsDistance*cos(radians(iAngle)),-pixsDistance*sin(radians(iAngle)),(float)(width-width*0.505)*cos(radians(iAngle)),(float)-(width-width*0.505)*sin(radians(iAngle)));
+			                                                                                                                                                          ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:92: error: cannot find symbol
+		popMatrix();
+		^
+  symbol:   method popMatrix()
+  location: class RadarProcessing
+RP.java:97: error: cannot find symbol
+		pushMatrix();
+		^
+  symbol:   method pushMatrix()
+  location: class RadarProcessing
+RP.java:98: error: cannot find symbol
+		strokeWeight(9);
+		^
+  symbol:   method strokeWeight(int)
+  location: class RadarProcessing
+RP.java:99: error: cannot find symbol
+		stroke(30,250,60);
+		^
+  symbol:   method stroke(int,int,int)
+  location: class RadarProcessing
+RP.java:100: error: cannot find symbol
+		translate((float)(width/2),(float)(height-height*0.074)); // moves the starting coordinats to new location
+		                  ^
+  symbol:   variable width
+  location: class RadarProcessing
+RP.java:100: error: cannot find symbol
+		translate((float)(width/2),(float)(height-height*0.074)); // moves the starting coordinats to new location
+		                                   ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:100: error: cannot find symbol
+		translate((float)(width/2),(float)(height-height*0.074)); // moves the starting coordinats to new location
+		                                          ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:100: error: cannot find symbol
+		translate((float)(width/2),(float)(height-height*0.074)); // moves the starting coordinats to new location
+		^
+  symbol:   method translate(float,float)
+  location: class RadarProcessing
+RP.java:101: error: cannot find symbol
+		line((float)0.0,(float)0.0,(float)((height-height*0.12)*cos(radians(iAngle))),(float)-(height-height*0.12)*sin(radians(iAngle))); // draws the line according to the angle
+		                                    ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:101: error: cannot find symbol
+		line((float)0.0,(float)0.0,(float)((height-height*0.12)*cos(radians(iAngle))),(float)-(height-height*0.12)*sin(radians(iAngle))); // draws the line according to the angle
+		                                           ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:101: error: cannot find symbol
+		line((float)0.0,(float)0.0,(float)((height-height*0.12)*cos(radians(iAngle))),(float)-(height-height*0.12)*sin(radians(iAngle))); // draws the line according to the angle
+		                                                            ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+RP.java:101: error: cannot find symbol
+		line((float)0.0,(float)0.0,(float)((height-height*0.12)*cos(radians(iAngle))),(float)-(height-height*0.12)*sin(radians(iAngle))); // draws the line according to the angle
+		                                                                                       ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:101: error: cannot find symbol
+		line((float)0.0,(float)0.0,(float)((height-height*0.12)*cos(radians(iAngle))),(float)-(height-height*0.12)*sin(radians(iAngle))); // draws the line according to the angle
+		                                                                                              ^
+  symbol:   variable height
+  location: class RadarProcessing
+RP.java:101: error: cannot find symbol
+		line((float)0.0,(float)0.0,(float)((height-height*0.12)*cos(radians(iAngle))),(float)-(height-height*0.12)*sin(radians(iAngle))); // draws the line according to the angle
+		                                                                                                               ^
+  symbol:   method radians(int)
+  location: class RadarProcessing
+Note: Some messages have been simplified; recompile with -Xdiags:verbose to get full output
+100 errors
