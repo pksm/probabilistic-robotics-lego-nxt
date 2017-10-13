@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 
-public class Consumer extends PApplet implements Runnable {
-
+public class RadarProcessing extends PApplet
+{
 	String angle="";
 	String distance="";
 	String data="";
@@ -12,33 +12,10 @@ public class Consumer extends PApplet implements Runnable {
 	int index2=0;
 
 	ProcessingSource[] ps = new ProcessingSource[90];
-	//@Override
-	private CubbyHole cubbyhole;
-	private CubbyHole ch;
-
-	public Consumer()
-	{
-		ch = getCubby();
+	
+	public static void main(String[] args) {
+		PApplet.main(new String[] {"RadarProcessing"});
 	}
-
-	public Consumer(CubbyHole c)
-	{
-		cubbyhole = c;
-	}
-
-	public void run(){
-		PApplet.main(new String[] {"Consumer"});
-		//main();
-	}
-
-	public CubbyHole getCubby(){
-		//CubbyHole okk = this.cubbyhole;
-		return this.cubbyhole;
-	}
-
-	// public void main(String[] args) {
-	// 	PApplet.main(new String[] {"RadarProcessing"});
-	// }
 	
 	public void settings()
 	{
@@ -161,7 +138,17 @@ public class Consumer extends PApplet implements Runnable {
 		for (int i = 0; i < ps.length; i++) {
 			ps[i].rrun();
 			ps[i].display();
-		}	
+		}
+		//noStroke();
+		//fill(0,4); 
+		//rect((float)0.0, (float)0.0, (float)width, (float)(height-height*0.065));
+
+		//fill(98,245,31); // green color
+		//// calls the functions for drawing the radar
+		//drawRadar(); 
+		//drawLine();
+		//drawObject();
+		//drawText();	
 	}
-		
+	
 }

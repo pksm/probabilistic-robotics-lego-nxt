@@ -12,14 +12,18 @@ public class ProcessingSource
 	String noObject;
 	float pixsDistance;
 	PApplet parent;
-	Reading r;
-	CubbyHole c;
+	//Reading r;
+	//CubbyHole now;
+	Consumer cons;
+	private CubbyHole ch;
 	
 	ProcessingSource(PApplet p)
 	{
 		parent = p;
 		iAngle = 0;
 		iDistance = (int) parent.random(10.0f, 70.0f);
+		Consumer cons = new Consumer();
+		//now = parent.getCubby();
 		//this.c = c;
 	}
 
@@ -141,8 +145,9 @@ public class ProcessingSource
 	
 	void rrun()
 	{
-		c = Consumer.getCubby();
-		r = c.get();
+		Reading r;
+		ch = cons.getCubby();
+		r = ch.get();
 		iAngle = r.getAngle();
 		iDistance = r.getDistance();
 	}
