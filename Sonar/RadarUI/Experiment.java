@@ -68,11 +68,16 @@ public class Experiment extends PApplet
       popMatrix();
     }
   }
-  // talvez mudar para aguardar tecla 'n' ou 'c'
-  public void mouseReleased() { //clears screen after a mouse click in the interface
+  
+  public void mouseReleased() { 
+    //clears screen after a mouse click in the interface
     setup();
   }
-
+  public void keyPressed() {
+    //  The system variable key always contains the value of the most recent key on the keyboard that was used (either pressed or released). 
+    if (key == 'n' || key == 'N') 
+      setup();
+  }
 
   @Override
   public void draw() {
